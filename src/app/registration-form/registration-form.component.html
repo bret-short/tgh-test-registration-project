@@ -10,7 +10,7 @@
         type="text"
         id="firstName"
         name="firstName"
-        ngModel
+        [(ngModel)]="firstName"
         class="form-control"
         required
         maxlength="50"
@@ -25,7 +25,7 @@
         type="text"
         id="middleInitial"
         name="middleInitial"
-        ngModel
+        [(ngModel)]="middleInitial"
         class="form-control"
       />
     </div>
@@ -35,7 +35,7 @@
         type="text"
         id="lastName"
         name="lastName"
-        ngModel
+        [(ngModel)]="lastName"
         class="form-control"
         required
         maxlength="50"
@@ -52,7 +52,7 @@
         type="email"
         id="email"
         name="email"
-        ngModel
+        [(ngModel)]="email"
         class="form-control"
         required
       />
@@ -63,7 +63,7 @@
         type="tel"
         id="phone"
         name="phone"
-        ngModel
+        [(ngModel)]="phone"
         class="form-control"
         required
       />
