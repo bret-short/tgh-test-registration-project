@@ -2,3 +2,8 @@
   background-color: #280581; /* Dark blue color */
   color: #fff; /* White text color */
 }
+
+.nav-link-logo {
+  max-width: 100px;
+  height: auto;
+}

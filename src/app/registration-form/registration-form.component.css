@@ -1,1 +1,14 @@
+/* Add the media query to hide the character counter on small screens */
+@media (max-width: 767px) {
+  .character-counter {
+    display: none;
+  }
+}
+.error-text {
+  color: red;
+}
 
+.required::after {
+  content: "*";
+  color: red;
+}

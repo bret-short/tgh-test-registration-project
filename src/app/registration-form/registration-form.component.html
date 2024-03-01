@@ -2,9 +2,10 @@
   (ngSubmit)="registerUser()"
   #registrationForm="ngForm"
   class="container mt-4"
+  name="registrationForm"
 >
   <div class="row mb-3">
-    <div class="col-md-4">
+    <div class="col-md-5 mb-3">
       <input
         placeholder="First Name"
         type="text"
@@ -14,12 +15,17 @@
         class="form-control"
         required
         maxlength="50"
+        aria-required="true"
+        (blur)="checkFirstNameValidity()"
       />
-      <small class="form-text text-muted"
-        >0 / {{ 50 - registrationForm.value.firstName?.length }}</small
-      >
+      <small class="form-text text-muted character-counter"
+        >{{ registrationForm.value.firstName?.length }} / {{ 50 }}
+      </small>
+      <small *ngIf="showFirstNameError" class="form-text text-danger">
+        *First Name is required
+      </small>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2 mb-3">
       <input
         placeholder="Middle Initial"
         type="text"
@@ -29,7 +35,7 @@
         class="form-control"
       />
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5 mb-0">
       <input
         placeholder="Last Name"
         type="text"
@@ -39,14 +45,18 @@
         class="form-control"
         required
         maxlength="50"
+        (blur)="checkLastNameValidity()"
       />
-      <small class="form-text text-muted"
-        >0 / {{ 50 - registrationForm.value.lastName?.length }}</small
-      >
+      <small class="form-text text-muted character-counter"
+        >{{ registrationForm.value.lastName?.length }} / {{ 50 }}
+      </small>
+      <small *ngIf="showLastNameError" class="form-text text-danger">
+        *Last Name is required
+      </small>
     </div>
   </div>
   <div class="row mb-3">
-    <div class="col-md-6">
+    <div class="col-md-6 mb-3">
       <input
         placeholder="Email"
         type="email"
@@ -57,7 +67,7 @@
         required
       />
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 mb-3">
       <input
         placeholder="Phone"
         type="tel"
@@ -71,7 +81,13 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <button type="submit" class="btn btn-primary me-2">Submit</button>
+      <button
+        type="submit"
+        class="btn btn-primary me-2"
+        [disabled]="isSubmitDisabled()"
+      >
+        Submit
+      </button>
       <button
         type="button"
         (click)="cancelRegistration()"

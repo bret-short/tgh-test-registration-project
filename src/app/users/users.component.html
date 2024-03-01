@@ -1,6 +1,4 @@
-<!-- users.component.html -->
-
-<div class="container mt-5">
+<div class="container mt-5 table-responsive">
   <h2>Users</h2>
   <table class="table">
     <thead>
@@ -15,20 +13,22 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{ user.id }}</td>
-        <td>{{ user.firstName }}</td>
-        <td>{{ user.middle }}</td>
-        <td>{{ user.lastName }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.phone }}</td>
-        <td>{{ user.enabled ? "Yes" : "No" }}</td>
-        <td>
-          <button (click)="deleteUser()">
-            <i class="fa-solid fa-trash-can"></i>
-          </button>
-        </td>
-      </tr>
+      <ng-container *ngFor="let user of users">
+        <tr *ngIf="user.isEnabled">
+          <td>{{ user.userID }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.middle }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.phone }}</td>
+          <td>{{ user.isEnabled }}</td>
+          <td>
+            <button (click)="deleteUser(user.userID)">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
 </div>

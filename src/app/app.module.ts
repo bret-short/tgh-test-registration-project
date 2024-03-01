@@ -9,6 +9,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { UsersComponent } from './users/users.component';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     RegistrationFormComponent,
     NavbarComponent,
     UsersComponent,
+    WelcomePageComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,6 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     RouterModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   bootstrap: [AppComponent],
 })
