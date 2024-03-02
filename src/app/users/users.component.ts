@@ -24,10 +24,11 @@ export class UsersComponent implements OnInit {
     this.userService.getUsers(this.accessCode).subscribe({
       next: (response: any) => {
         this.users = response.payload;
-        console.log('HERE', this.users);
       },
       error: (error: any) => {
-        console.log('Error fetching users', error);
+        this.toastr.error('Failed to get users', 'Error', {
+          positionClass: 'toast-top-center toast-container',
+        });
       },
     });
   }
@@ -35,7 +36,6 @@ export class UsersComponent implements OnInit {
   deleteUser(userId: number) {
     this.userService.deleteUser(this.accessCode, userId).subscribe({
       next: (response: any) => {
-        console.log('User deleted', response);
         this.toastr.success(`User ${userId} deleted successfully.`, 'Success'),
           { positionClass: 'toast-top-center' };
         this.getUsers();

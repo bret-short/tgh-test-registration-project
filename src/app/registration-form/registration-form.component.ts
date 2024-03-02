@@ -83,7 +83,6 @@ export class RegistrationFormComponent {
         this.toastr.error('Registration failed.', 'Error', {
           positionClass: 'toast-top-center toast-container',
         });
-        console.log('Registration failed.', error);
       },
     });
   }
@@ -109,7 +108,6 @@ export class RegistrationFormComponent {
   }
 
   cancelRegistration() {
-    console.log('Registration canceled');
     // Replace fields with empty strings when canceled
     this.firstName = '';
     this.lastName = '';
