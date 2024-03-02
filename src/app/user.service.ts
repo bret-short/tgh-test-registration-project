@@ -3,6 +3,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { GenericResponse } from './interfaces/generic-response.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,12 +13,12 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getUsers(accessCode: string): Observable<any> {
+  getUsers(accessCode: string) {
     const url = `${this.apiUrl}/${accessCode}`;
-    return this.http.get(url);
+    return this.http.get<GenericResponse>(url);
   }
-  deleteUser(accessCode: string, userId: number): Observable<any> {
+  deleteUser(accessCode: string, userId: number) {
     const url = `${this.apiUrl}/${userId}/${accessCode}`;
-    return this.http.delete(url);
+    return this.http.delete<GenericResponse>(url);
   }
 }

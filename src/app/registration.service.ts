@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './registration-form/registration-form.component';
+import { GenericResponse } from './interfaces/generic-response.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +12,6 @@ export class RegistrationService {
   constructor(private http: HttpClient) {}
 
   registerUser(user: User) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
-    return this.http.post(this.apiUrl, user, { headers });
+    return this.http.post<GenericResponse>(this.apiUrl, user);
   }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RegistrationService } from '../registration.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface User {
   accessCode: string;
@@ -13,25 +14,6 @@ export interface User {
   userId: number;
   isEnabled: boolean;
 }
-
-export interface RegistrationResponse {
-  success: boolean;
-  payload: {
-    userID: number;
-    firstName: string;
-    middleInitial: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    isEnabled: boolean;
-    createDate: string;
-    modifiedDate: string | null;
-    accessCode: string;
-  };
-  message: string | null;
-  error: any | null;
-}
-
 @Component({
   selector: 'app-registration-form',
   templateUrl: './registration-form.component.html',
@@ -84,10 +66,9 @@ export class RegistrationFormComponent {
     }
 
     this.registrationService.registerUser(user).subscribe({
-      next: (response: any) => {
-        const registrationResponse = response as RegistrationResponse;
+      next: (response) => {
         if (response.success) {
-          const userId = registrationResponse.payload.userID;
+          const userId = response.payload.userID;
           this.toastr.success(
             `User ${userId} registered successfully.`,
             'Success',
@@ -98,10 +79,11 @@ export class RegistrationFormComponent {
           this.toastr.error('Registration failed.', 'Error');
         }
       },
-      error: () => {
+      error: (error: HttpErrorResponse) => {
         this.toastr.error('Registration failed.', 'Error', {
           positionClass: 'toast-top-center',
         });
+        console.log(error.message, error.error);
       },
     });
   }

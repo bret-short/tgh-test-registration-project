@@ -2,13 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../registration-form/registration-form.component';
-
-interface UserResponse {
-  payload: User[];
-  success: boolean;
-  message: string | null;
-  error: any;
-}
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-users',
@@ -16,7 +10,7 @@ interface UserResponse {
   styleUrl: './users.component.css',
 })
 export class UsersComponent implements OnInit {
-  users: any[] = [];
+  users: User[] = [];
   accessCode = '449732';
 
   constructor(
@@ -30,19 +24,20 @@ export class UsersComponent implements OnInit {
 
   getUsers() {
     this.userService.getUsers(this.accessCode).subscribe({
-      next: (response: UserResponse) => {
+      next: (response) => {
         if (response.success) {
-          this.users = response.payload;
+          this.users = response.payload as User[];
         } else {
           this.toastr.error('Failed to get users', 'Error', {
             positionClass: 'toast-top-center',
           });
         }
       },
-      error: () => {
+      error: (error: HttpErrorResponse) => {
         this.toastr.error('Failed to get users', 'Error', {
           positionClass: 'toast-top-center',
         });
+        console.log(error.message, error.error);
       },
     });
   }
@@ -54,10 +49,11 @@ export class UsersComponent implements OnInit {
           { positionClass: 'toast-top-center' };
         this.getUsers();
       },
-      error: () => {
+      error: (error: HttpErrorResponse) => {
         this.toastr.error('Failed to delete user', 'Error', {
           positionClass: 'toast-top-center toast-container',
         });
+        console.log(error.message, error.error);
       },
     });
   }
