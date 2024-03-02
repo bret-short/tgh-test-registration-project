@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../registration-form/registration-form.component';
+
+interface UserResponse {
+  payload: User[];
+  success: boolean;
+  message: string | null;
+  error: any;
+}
 
 @Component({
   selector: 'app-users',
@@ -9,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UsersComponent implements OnInit {
   users: any[] = [];
-  accessCode: string = '449732';
+  accessCode = '449732';
 
   constructor(
     private userService: UserService,
@@ -22,12 +30,18 @@ export class UsersComponent implements OnInit {
 
   getUsers() {
     this.userService.getUsers(this.accessCode).subscribe({
-      next: (response: any) => {
-        this.users = response.payload;
+      next: (response: UserResponse) => {
+        if (response.success) {
+          this.users = response.payload;
+        } else {
+          this.toastr.error('Failed to get users', 'Error', {
+            positionClass: 'toast-top-center',
+          });
+        }
       },
-      error: (error: any) => {
+      error: () => {
         this.toastr.error('Failed to get users', 'Error', {
-          positionClass: 'toast-top-center toast-container',
+          positionClass: 'toast-top-center',
         });
       },
     });
@@ -35,12 +49,12 @@ export class UsersComponent implements OnInit {
 
   deleteUser(userId: number) {
     this.userService.deleteUser(this.accessCode, userId).subscribe({
-      next: (response: any) => {
+      next: () => {
         this.toastr.success(`User ${userId} deleted successfully.`, 'Success'),
           { positionClass: 'toast-top-center' };
         this.getUsers();
       },
-      error: (error) => {
+      error: () => {
         this.toastr.error('Failed to delete user', 'Error', {
           positionClass: 'toast-top-center toast-container',
         });

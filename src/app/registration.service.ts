@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from './registration-form/registration-form.component';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ export class RegistrationService {
 
   constructor(private http: HttpClient) {}
 
-  registerUser(user: any) {
+  registerUser(user: User) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });

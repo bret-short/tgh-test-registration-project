@@ -3,7 +3,7 @@ import { RegistrationService } from '../registration.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
-interface User {
+export interface User {
   accessCode: string;
   firstName: string;
   lastName: string;
@@ -11,6 +11,25 @@ interface User {
   email?: string;
   phone?: string;
   userId: number;
+  isEnabled: boolean;
+}
+
+export interface RegistrationResponse {
+  success: boolean;
+  payload: {
+    userID: number;
+    firstName: string;
+    middleInitial: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    isEnabled: boolean;
+    createDate: string;
+    modifiedDate: string | null;
+    accessCode: string;
+  };
+  message: string | null;
+  error: any | null;
 }
 
 @Component({
@@ -19,18 +38,16 @@ interface User {
   styleUrls: ['./registration-form.component.css'],
 })
 export class RegistrationFormComponent {
-  success: boolean = true;
-  notificationMessage: string = '';
-  // Declare properties to store form values
-  firstName: string = '';
-  lastName: string = '';
-  middleInitial: string = '';
-  email: string = '';
-  phone: string = '';
-  showLastNameError: boolean = false;
-  showFirstNameError: boolean = false;
-  emailValid: boolean = false;
-  userId: number = 0;
+  firstName = '';
+  lastName = '';
+  middleInitial = '';
+  email = '';
+  phone = '';
+  showLastNameError = false;
+  showFirstNameError = false;
+  emailValid = false;
+  userId = 0;
+  isEnabled = false;
 
   constructor(
     private registrationService: RegistrationService,
@@ -52,6 +69,7 @@ export class RegistrationFormComponent {
       phone: this.phone,
       accessCode: '449732',
       userId: this.userId,
+      isEnabled: this.isEnabled,
     };
 
     if (user.email && !this.checkEmailValidity(user.email)) {
@@ -67,8 +85,9 @@ export class RegistrationFormComponent {
 
     this.registrationService.registerUser(user).subscribe({
       next: (response: any) => {
+        const registrationResponse = response as RegistrationResponse;
         if (response.success) {
-          const userId = response.payload.userID;
+          const userId = registrationResponse.payload.userID;
           this.toastr.success(
             `User ${userId} registered successfully.`,
             'Success',
@@ -79,9 +98,9 @@ export class RegistrationFormComponent {
           this.toastr.error('Registration failed.', 'Error');
         }
       },
-      error: (error) => {
+      error: () => {
         this.toastr.error('Registration failed.', 'Error', {
-          positionClass: 'toast-top-center toast-container',
+          positionClass: 'toast-top-center',
         });
       },
     });
@@ -114,10 +133,5 @@ export class RegistrationFormComponent {
     this.middleInitial = '';
     this.email = '';
     this.phone = '';
-  }
-
-  clearNotification() {
-    this.success = true;
-    this.notificationMessage = '';
   }
 }
