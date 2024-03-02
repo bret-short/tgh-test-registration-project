@@ -11,7 +11,7 @@ export interface User {
   middleInitial?: string;
   email?: string;
   phone?: string;
-  userId: number;
+  userID: number;
   isEnabled: boolean;
 }
 @Component({
@@ -50,7 +50,7 @@ export class RegistrationFormComponent {
       email: this.email,
       phone: this.phone,
       accessCode: '449732',
-      userId: this.userId,
+      userID: this.userId,
       isEnabled: this.isEnabled,
     };
 

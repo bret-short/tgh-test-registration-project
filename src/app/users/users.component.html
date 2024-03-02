@@ -16,7 +16,7 @@
       <tbody>
         <ng-container *ngFor="let user of users">
           <tr *ngIf="user.isEnabled">
-            <td class="d-none d-sm-table-cell">{{ user.userId }}</td>
+            <td class="d-none d-sm-table-cell">{{ user.userID }}</td>
             <td>{{ user.firstName }}</td>
             <td class="d-none d-sm-table-cell">{{ user.middleInitial }}</td>
             <td>{{ user.lastName }}</td>
@@ -24,7 +24,7 @@
             <td class="d-none d-sm-table-cell">{{ user.phone }}</td>
             <td>{{ user.isEnabled }}</td>
             <td>
-              <button (click)="deleteUser(user.userId)">
+              <button (click)="deleteUser(user.userID)">
                 <i class="fa-solid fa-trash-can"></i>
               </button>
             </td>
