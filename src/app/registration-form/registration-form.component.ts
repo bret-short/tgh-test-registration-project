@@ -55,7 +55,6 @@ export class RegistrationFormComponent {
     };
 
     if (user.email && !this.checkEmailValidity(user.email)) {
-      // Display an error message for invalid email
       this.toastr.error('Invalid email address.', 'Error');
       return;
     }
@@ -109,7 +108,6 @@ export class RegistrationFormComponent {
   }
 
   cancelRegistration() {
-    // Replace fields with empty strings when canceled
     this.firstName = '';
     this.lastName = '';
     this.middleInitial = '';
