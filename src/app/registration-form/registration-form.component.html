@@ -76,6 +76,8 @@
         [(ngModel)]="phone"
         class="form-control"
         required
+        (input)="formatPhoneNumber($event)"
+        maxlength="14"
       />
     </div>
   </div>

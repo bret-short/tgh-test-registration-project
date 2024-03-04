@@ -107,6 +107,25 @@ export class RegistrationFormComponent {
     return this.phonePattern.test(phone);
   }
 
+  formatPhoneNumber(event: any): void {
+    // Get the input value without non-digit characters
+    const inputValue = event.target.value.replace(/\D/g, '');
+
+    // Check if the input value is not empty
+    if (inputValue.length > 0) {
+      // Format the phone number as (XXX) XXX-XXXX
+      const formattedValue =
+        '(' +
+        inputValue.substring(0, 3) +
+        ') ' +
+        inputValue.substring(3, 6) +
+        '-' +
+        inputValue.substring(6, 10);
+
+      this.phone = formattedValue;
+    }
+  }
+
   cancelRegistration() {
     this.firstName = '';
     this.lastName = '';
