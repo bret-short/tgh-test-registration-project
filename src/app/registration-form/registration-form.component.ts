@@ -40,7 +40,7 @@ export class RegistrationFormComponent {
   private emailPattern: RegExp =
     /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-  private phonePattern: RegExp = /^\d{10}$/;
+  private phonePattern: RegExp = /^\(\d{3}\) \d{3}-\d{4}$/;
 
   registerUser() {
     const user: User = {
@@ -111,9 +111,7 @@ export class RegistrationFormComponent {
     // Get the input value without non-digit characters
     const inputValue = event.target.value.replace(/\D/g, '');
 
-    // Check if the input value is not empty
     if (inputValue.length > 0) {
-      // Format the phone number as (XXX) XXX-XXXX
       const formattedValue =
         '(' +
         inputValue.substring(0, 3) +
