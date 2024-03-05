@@ -63,6 +63,10 @@ export class RegistrationFormComponent {
       this.toastr.error('Phone number must be 10 digit number.', 'Error');
       return;
     }
+    if (user.middleInitial && user.middleInitial.length !== 1) {
+      this.toastr.error('Middle Initial must be a single letter.', 'Error');
+      return;
+    }
 
     this.registrationService.registerUser(user).subscribe({
       next: (response) => {

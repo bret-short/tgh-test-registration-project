@@ -34,6 +34,12 @@
         [(ngModel)]="middleInitial"
         class="form-control"
       />
+      <small
+        *ngIf="middleInitial && middleInitial.length !== 1"
+        class="form-text text-danger"
+      >
+        Middle Initial must be a single letter.
+      </small>
     </div>
     <div class="col-md-5 mb-0">
       <input
