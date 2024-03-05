@@ -18,7 +18,7 @@
         aria-required="true"
         (blur)="checkFirstNameValidity()"
       />
-      <small class="form-text text-muted character-counter"
+      <small class="form-text text-muted character-counter float-end"
         >{{ registrationForm.value.firstName?.length }} / {{ 50 }}
       </small>
       <small *ngIf="showFirstNameError" class="form-text text-danger">
@@ -53,7 +53,7 @@
         maxlength="50"
         (blur)="checkLastNameValidity()"
       />
-      <small class="form-text text-muted character-counter"
+      <small class="form-text text-muted character-counter float-end"
         >{{ registrationForm.value.lastName?.length }} / {{ 50 }}
       </small>
       <small *ngIf="showLastNameError" class="form-text text-danger">
