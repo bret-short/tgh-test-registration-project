@@ -76,6 +76,7 @@ export class RegistrationFormComponent {
           this.router.navigate(['/users']);
         } else {
           this.toastr.error('Registration failed.', 'Error');
+          console.log(response.error);
         }
       },
       error: (error: HttpErrorResponse) => {

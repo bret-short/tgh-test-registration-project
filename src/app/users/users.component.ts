@@ -31,6 +31,7 @@ export class UsersComponent implements OnInit {
           this.toastr.error('Failed to get users', 'Error', {
             positionClass: 'toast-top-center',
           });
+          console.log(response.error);
         }
       },
       error: (error: HttpErrorResponse) => {
