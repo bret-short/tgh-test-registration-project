@@ -3,6 +3,7 @@ import { RegistrationService } from '../registration.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { environment } from '../../environment';
 
 export interface User {
   accessCode: string;
@@ -49,7 +50,7 @@ export class RegistrationFormComponent {
       middleInitial: this.middleInitial,
       email: this.email,
       phone: this.phone,
-      accessCode: '449732',
+      accessCode: environment.accessCode,
       userID: this.userId,
       isEnabled: this.isEnabled,
     };

@@ -3,6 +3,7 @@ import { UserService } from '../user.service';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../registration-form/registration-form.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { environment } from '../../environment';
 
 @Component({
   selector: 'app-users',
@@ -11,7 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class UsersComponent implements OnInit {
   users: User[] = [];
-  accessCode = '449732';
+  accessCode = environment.accessCode;
 
   constructor(
     private userService: UserService,
